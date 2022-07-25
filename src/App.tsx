@@ -1,13 +1,22 @@
+import { Box } from '@mui/material';
 import { FC } from 'react';
 import './App.css';
-import Router from './share/router';
+import Router from './shared/router';
 
 interface IApp { }
 const App: FC<IApp> = () => {
   return (
-    <div className="App">
-      <Router/>
-    </div>
+    <Box
+      sx={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        minHeight: '100vh'
+      }}
+    >
+      
+        <Router />
+    </Box>
   )
 }
 
