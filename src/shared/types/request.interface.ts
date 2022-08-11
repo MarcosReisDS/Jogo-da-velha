@@ -7,11 +7,3 @@ export interface IRequestGet extends IRequest {
         id?: number;
     }
 }
-
-export interface IRequestPut extends IRequestGet {
-    data?: {
-        you?: string;
-        draw?: string;
-        they?: string;
-    }
-}

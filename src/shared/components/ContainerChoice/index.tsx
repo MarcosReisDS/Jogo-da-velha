@@ -1,9 +1,26 @@
 import { Box, Grid, ToggleButton, ToggleButtonGroup } from "@mui/material";
-import { FC } from "react";
+import { FC, useContext, useState } from "react";
 import { BsRecordCircleFill, BsXLg } from "react-icons/bs";
+import { COLORS } from "../../constants/colors";
+import Contexts, { IContext } from "../../contexts";
 
-interface IContainerChoice { }
-const ContainerChoice: FC<IContainerChoice> = () => {
+interface IContainerChoice {
+    selectedCheese: () => void;
+    selectedCircle: () => void;
+}
+const ContainerChoice: FC<IContainerChoice> = ({ selectedCheese, selectedCircle }) => {
+
+    const { playerOne, setPlayerOne, playerTwo, setPlayerTwo } = useContext(Contexts) as IContext
+
+    const handleChoice = (choice: "cheese" | "circle") => {
+        if (choice === "cheese") {
+            setPlayerOne({ ...playerOne, myChoice: "cheese" })
+            setPlayerTwo({ ...playerTwo, myChoice: "circle" })
+        } else {
+            setPlayerOne({ ...playerOne, myChoice: "circle" })
+            setPlayerTwo({ ...playerTwo, myChoice: "cheese" })
+        }
+    }
     return (
         <Grid
             container
@@ -21,7 +38,7 @@ const ContainerChoice: FC<IContainerChoice> = () => {
         >
             <Grid item mb={3}>
                 <Box>
-                    <p style={{color: "#95acb6"}}>FAÇA SUA ESCOLHA</p>
+                    <p style={{ color: "#95acb6" }}>FAÇA SUA ESCOLHA</p>
                 </Box>
             </Grid>
             <Grid
@@ -48,28 +65,31 @@ const ContainerChoice: FC<IContainerChoice> = () => {
                             style={{
                                 width: "160px",
                                 height: "50px",
-                                border: "none"
+                                border: "none",
+                                backgroundColor: playerOne.myChoice === "cheese" ? COLORS.SELECTED1 : COLORS.SELECTED2
                             }}
+                            onClick={() => handleChoice("cheese")}
                         >
-                            <BsXLg size="20" style={{ color: "#aabdc6" }} />
+                            <BsXLg size="20" style={{ color: playerOne.myChoice === "cheese" ? COLORS.SELECTED2 : COLORS.SELECTED1 }} />
                         </ToggleButton>
                         <ToggleButton
                             value="two"
                             style={{
                                 width: "160px",
                                 height: "50px",
-                                backgroundColor: "#a9bfca",
-                                border: "none"
+                                border: "none",
+                                backgroundColor: playerOne.myChoice === "circle" ? COLORS.SELECTED1 : COLORS.SELECTED2
                             }}
+                            onClick={() => handleChoice("circle")}
                         >
-                            <BsRecordCircleFill size="20" style={{ color: "#2a3d47" }} />
+                            <BsRecordCircleFill size="20" style={{ color: playerOne.myChoice === "circle" ? COLORS.SELECTED2 : COLORS.SELECTED1 }} />
                         </ToggleButton>
                     </ToggleButtonGroup>
                 </Box>
             </Grid>
             <Grid item mt={3}>
                 <Box>
-                    <p style={{color: "#425663"}}>LEMBRE-SE X SERÁ O PRIMEIRO</p>
+                    <p style={{ color: "#425663" }}>LEMBRE-SE X SERÁ O PRIMEIRO</p>
                 </Box>
             </Grid>
         </Grid>

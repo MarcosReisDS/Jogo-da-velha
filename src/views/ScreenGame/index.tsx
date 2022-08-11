@@ -1,12 +1,27 @@
 import { Box, Grid } from "@mui/material";
-import { FC } from "react";
+import { FC, useContext, useEffect } from "react";
 import { BsRecordCircleFill, BsXLg } from "react-icons/bs";
-import Icons from "../../shared/components/Icons";
+import { useNavigate } from "react-router-dom";
 import PickBox from "../../shared/components/PickBox";
+import Contexts, { IContext } from "../../shared/contexts";
 
 
 interface IScreenGame { }
 const ScreenGame: FC<IScreenGame> = () => {
+
+    const { playerOne, playerTwo, currentUser } = useContext(Contexts) as IContext
+
+    const navigate = useNavigate()
+
+    const playerOneIcon = playerOne.myChoice === "cheese" ? <BsXLg size="15" color="#fff" /> :  <BsRecordCircleFill size="15" style={{ color: "#fff" }} />
+    const playerTwoIcon = playerTwo.myChoice === "cheese" ? <BsXLg size="15" color="#fff" /> :  <BsRecordCircleFill size="15" style={{ color: "#fff" }} />
+
+    useEffect(() => {
+        if (playerOne.myChoice === null) {
+            navigate("/novojogo")
+        }
+    }, [])
+
     return (
         <Box style={{ display: "flex", justifyContent: "center", alignItems: "center", width: "25%", flexDirection: "column" }}>
             <Grid
@@ -43,7 +58,8 @@ const ScreenGame: FC<IScreenGame> = () => {
                             marginLeft: "190px",
                             boxShadow: "0px 3px 0px rgba(0,0,0,.2)"
                         }}>
-                        <BsXLg size="15" color="#fff" /><p style={{color: "#fff", fontSize: "10px"}}>TURNO</p>
+                            {currentUser === "p1" ? playerOneIcon : playerTwoIcon }
+                        <p style={{ color: "#fff", fontSize: "10px" }}>TURNO</p>
                     </Box>
                 </Grid>
             </Grid>
