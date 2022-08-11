@@ -1,8 +1,11 @@
 import { Box, Grid, Button } from "@mui/material";
 import { FC } from "react";
 
-interface IButtons { }
-const Buttons: FC<IButtons> = () => {
+interface IButtons {
+    cpu: () => void
+    player: () => void
+ }
+const Buttons: FC<IButtons> = ({cpu, player}) => {
     return (
         <Grid
             container
@@ -23,6 +26,7 @@ const Buttons: FC<IButtons> = () => {
                             borderRadius: "10px",
                             boxShadow: "inset 0px -5px 0px rgba(0,0,0,.2)"
                         }} 
+                        onClick={cpu}
                     >
                         NOVO JOGO(CPU)
                     </Button>
@@ -40,6 +44,7 @@ const Buttons: FC<IButtons> = () => {
                             borderRadius: "10px",
                             boxShadow: "inset 0px -5px 0px rgba(0,0,0,.2)"
                         }}
+                        onClick={player}
                     >
                         NOVO JOGO(AMIGO)
                     </Button>

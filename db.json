@@ -1,16 +1,9 @@
 {
-  "scoreboard": [
-    {
-      "you": "0",
-      "id": 1
-    },
-    {
-      "draw": "0",
-      "id": 2
-    },
-    {
-      "they": "5",
-      "id": 3
-    }
-  ]
+
+  "scoreboard": [{
+    "id": 1,
+      "you": 0,
+      "draw": 0,
+      "they": 0
+  }]
 }

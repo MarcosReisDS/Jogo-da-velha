@@ -1,11 +1,16 @@
 import { Box, Grid } from "@mui/material";
-import { FC } from "react";
+import { FC, useContext, useEffect } from "react";
 import { BsRecordCircleFill, BsXLg } from "react-icons/bs";
+import { useNavigate } from "react-router-dom";
 import Buttons from "../../shared/components/Buttons";
 import ContainerChoice from "../../shared/components/ContainerChoice";
+import Contexts, { IContext } from "../../shared/contexts";
 
 interface IScreenNewGame { }
 const ScreenNewGame: FC<IScreenNewGame> = () => {
+
+    const { contexts, handleChoice, gameScreen, playerOne, playerTwo } = useContext(Contexts) as IContext
+
     return (
         <Box
             sx={{
@@ -35,8 +40,11 @@ const ScreenNewGame: FC<IScreenNewGame> = () => {
                     </Box>
                 </Grid>
             </Grid>
-            <ContainerChoice />
-            <Buttons />
+            <ContainerChoice
+                selectedCheese={() => handleChoice("cheese")}
+                selectedCircle={() => handleChoice("circle")}
+            />
+            <Buttons cpu={() => gameScreen("/jogo/cpu")} player={() => gameScreen("/jogo/player")}/>
         </Box>
     )
 }
